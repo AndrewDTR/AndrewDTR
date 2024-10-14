@@ -1,0 +1,49 @@
+name: Update README with latest blog post
+
+on:
+  schedule:
+    # every 12 hours
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository content
+      uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install required packages
+      run: npm install rss-parser
+
+    - name: Fetch latest blog post from RSS feed
+      run: |
+        node <<EOF
+        const fs = require('fs');
+        const Parser = require('rss-parser');
+        const parser = new Parser();
+        const today = new Date().toISOString().slice(0, 10);
+
+        (async () => {
+          const feed = await parser.parseURL('https://amoses.dev/rss.xml');  // Your RSS feed URL
+          const latestPost = feed.items[0];
+          
+          const newReadmeContent = `Welcome to my profile! I'm Andrew, and Computer Science student at the University of Wisconsin. You can learn more about me (and read some of my writing) at https://amoses.dev. The latest post there is called [${latestPost.title}](${latestPost.link}). (Last checked ${today})`;
+          
+          fs.writeFileSync('README.md', newReadmeContent);
+        })();
+        EOF
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add README.md
+        git commit -m "Update README with latest blog post"
+        git push
