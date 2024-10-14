@@ -38,10 +38,12 @@ jobs:
     - name: Run the Node.js script
       run: node updateReadme.js
 
-    - name: Commit and push changes
+      - name: Commit and push changes
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add README.md
         git commit -m "Update README with latest blog post"
-        git push
+        git push https://x-access-token:${GH_TOKEN}@github.com/AndrewDTR/AndrewDTR.git HEAD:main
