@@ -3,7 +3,7 @@ name: Update README with latest blog post
 on:
   schedule:
     # every 12 hours
-    - cron: "0 */12 * * *"  
+    - cron: "0 */12 * * *"
   workflow_dispatch:
 
 jobs:
@@ -38,9 +38,9 @@ jobs:
     - name: Run the Node.js script
       run: node updateReadme.js
 
-      - name: Commit and push changes
+    - name: Commit and push changes
       env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_TOKEN: ${{ secrets.bot }}
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
