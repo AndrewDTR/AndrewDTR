@@ -31,7 +31,7 @@ jobs:
         (async () => { \
           const feed = await parser.parseURL('https://amoses.dev/rss.xml'); \
           const latestPost = feed.items[0]; \
-          const newReadmeContent = \`Welcome to my profile! I'm Andrew, and Computer Science student at the University of Wisconsin. You can learn more about me (and read some of my writing) at https://amoses.dev. The latest post there is called [\${latestPost.title}](\${latestPost.link}). (Last checked \${today})\`; \
+          const newReadmeContent = \`Welcome to my profile! I'm Andrew, a Computer Science student at the University of Wisconsin. You can learn more about me (and read some of my writing) at https://amoses.dev. The latest post there is called [\${latestPost.title}](\${latestPost.link}). (Last checked \${today})\`; \
           fs.writeFileSync('README.md', newReadmeContent); \
         })();" > updateReadme.js
 
