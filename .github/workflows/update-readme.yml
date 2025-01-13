@@ -33,7 +33,9 @@ jobs:
           const postCount = feed.items.length; \
           const latestPost = feed.items[0]; \
           const postText = postCount === 1 ? 'post' : 'posts'; \
-          const newReadmeContent = \`Welcome to my profile! I'm Andrew, a Computer Science student at the University of Wisconsin. You can learn more about me (and read some of my writing) at https://amoses.dev. It has \${postCount} blog \${postText}, and the latest is titled [\${latestPost.title}](\${latestPost.link}). (This README is automatically updated -- last checked \${today}!)\`; \
+          const newReadmeContent = `Welcome to my profile! I'm Andrew, a Computer Science student at the University of Wisconsin.
+
+          You can learn more about me (and read some of my writing) at https://amoses.dev. It has ${postCount} blog ${postText}, and the latest is titled [${latestPost.title}](${latestPost.link}). (This README is automatically updated -- last checked ${today}!)`;
           fs.writeFileSync('README.md', newReadmeContent); \
         })();" > updateReadme.js
 
